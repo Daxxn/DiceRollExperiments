@@ -1,3 +1,4 @@
+import diceSelector from "../components/DiceSelector";
 
 export default class Dice {
   static roll() {
@@ -21,5 +22,22 @@ export default class Dice {
     }
 
     return num;
+  }
+
+  static rollDiceArray(count) {
+    const output = [];
+    for (let i = 0; i < count; i += 1) {
+      const r = this.roll();
+      output.push(r);
+    }
+    return output;
+  }
+
+  static createDiceArray(numbers) {
+    const output = [];
+    for (let i = 0; i < numbers.length; i += 1) {
+      output.push(diceSelector(numbers[i]));
+    }
+    return output;
   }
 }

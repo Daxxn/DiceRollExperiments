@@ -1,15 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import diceSelector from './DiceSelector';
 import '../styles/MainPage.css';
 import DiceDisplay from './DiceDisplay';
 import DiceMethods from '../diceroll/dice';
+import Dice from '../diceroll/dice';
+import DiceContainer from './DiceContainer';
 
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dice: 0,
-      imge: diceSelector(0),
+      dice: [],
+      imges: [],
     };
 
     this.onDiceSelect = this.onDiceSelect.bind(this);
@@ -21,34 +24,45 @@ export default class MainPage extends React.Component {
    * @param {Event} e Event handler input.
    */
   onDiceSelect(e) {
-    let val = Number(e.target.value);
+    // let val = Number(e.target.value);
 
-    val = DiceMethods.checkDice(val);
+    // val = DiceMethods.checkDice(val);
 
-    const img = diceSelector(val);
+    // const img = diceSelector(val);
 
-    this.setState({
-      dice: val,
-      imge: img,
-    });
+    // this.setState({
+    //   dice: val,
+    //   imge: img,
+    // });
   }
 
   onDiceRoll() {
-    const roll = DiceMethods.roll();
+    // OLD
+    // const roll = DiceMethods.roll();
+    // this.setState({
+    //   dice: roll,
+    //   imge: diceSelector(roll),
+    // });
+    const newRoll = DiceMethods.rollDiceArray(this.props.diceCount);
+    const newDice = DiceMethods.createDiceArray(newRoll);
     this.setState({
-      dice: roll,
-      imge: diceSelector(roll),
+      dice: newRoll,
+      imges: newDice,
     });
   }
 
   render() {
+    const DiceDisplays = this.state.imges.map((img) => <DiceDisplay imge={img} />);
     return (
       <div className="App">
         <input type="number" onChange={this.onDiceSelect} />
-        <DiceDisplay imge={this.state.imge} />
+        <DiceContainer allDice={DiceDisplays} />
         <button type="button" onClick={this.onDiceRoll}>Roll Dice</button>
         <p>{this.state.dice}</p>
       </div>
     );
   }
+}
+MainPage.propTypes = {
+  diceCount: PropTypes.number.isRequired,
 }

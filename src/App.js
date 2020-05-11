@@ -9,7 +9,7 @@ function App() {
         <h2>Dice Baby!</h2>
       </header>
       <div>
-        <MainPage />
+        <MainPage diceCount={4} />
       </div>
     </div>
   );
