@@ -1,30 +1,53 @@
 import React from 'react';
-import dice3 from '../diceImg/Dice-3.svg';
-import dice1 from '../diceImg/Dice-1.svg';
-import Dice from '../diceroll/dice';
-import DiceDisplay from './DiceDisplay';
+import diceSelector from './DiceSelector';
 import '../styles/MainPage.css';
+import DiceDisplay from './DiceDisplay';
+import DiceMethods from '../diceroll/dice';
 
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dice: 42,
+      dice: 0,
+      imge: diceSelector(0),
     };
+
+    this.onDiceSelect = this.onDiceSelect.bind(this);
+    this.onDiceRoll = this.onDiceRoll.bind(this);
   }
 
-  triggerDice() {
+  /**
+   * Triggers the dice update.
+   * @param {Event} e Event handler input.
+   */
+  onDiceSelect(e) {
+    let val = Number(e.target.value);
+
+    val = DiceMethods.checkDice(val);
+
+    const img = diceSelector(val);
+
     this.setState({
-      dice: Dice.roll(),
+      dice: val,
+      imge: img,
+    });
+  }
+
+  onDiceRoll() {
+    const roll = DiceMethods.roll();
+    this.setState({
+      dice: roll,
+      imge: diceSelector(roll),
     });
   }
 
   render() {
     return (
       <div className="App">
-        <img src={dice3} id="dice3" alt="" />
-        <img src={dice1} id="dice1" alt="" className="dice-spacing" />
-        <DiceDisplay dice={this.state.dice} />
+        <input type="number" onChange={this.onDiceSelect} />
+        <DiceDisplay imge={this.state.imge} />
+        <button type="button" onClick={this.onDiceRoll}>Roll Dice</button>
+        <p>{this.state.dice}</p>
       </div>
     );
   }
