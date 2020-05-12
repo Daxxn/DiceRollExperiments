@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/DiceDisplay.css';
+import DiceSelector from './DiceSelector';
 
 export default function DiceDisplay(props) {
   return (
-    <div>
-      <img className="dice-image" src={props.imge} alt="not found." />
+    <div id={props.id}>
+      <img className="dice-image" src={DiceSelector(props.number)} alt="not found." />
     </div>
   );
 }
 DiceDisplay.propTypes = {
-  imge: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
 };

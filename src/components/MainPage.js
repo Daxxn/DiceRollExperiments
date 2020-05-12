@@ -1,68 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import diceSelector from './DiceSelector';
 import '../styles/MainPage.css';
-import DiceDisplay from './DiceDisplay';
 import DiceMethods from '../diceroll/dice';
-import Dice from '../diceroll/dice';
 import DiceContainer from './DiceContainer';
+import DiceDisplay from './DiceDisplay';
 
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dice: [],
-      imges: [],
+      input: '0000',
+      dice: this.initDice(),
     };
 
-    this.onDiceSelect = this.onDiceSelect.bind(this);
+    this.onDiceInput = this.onDiceInput.bind(this);
     this.onDiceRoll = this.onDiceRoll.bind(this);
   }
 
-  /**
-   * Triggers the dice update.
-   * @param {Event} e Event handler input.
-   */
-  onDiceSelect(e) {
-    // let val = Number(e.target.value);
-
-    // val = DiceMethods.checkDice(val);
-
-    // const img = diceSelector(val);
-
-    // this.setState({
-    //   dice: val,
-    //   imge: img,
-    // });
-  }
-
   onDiceRoll() {
-    // OLD
-    // const roll = DiceMethods.roll();
+    // const newRoll = DiceMethods.rollDiceArray(this.props.diceCount);
     // this.setState({
-    //   dice: roll,
-    //   imge: diceSelector(roll),
+    //   dice: newRoll,
     // });
-    const newRoll = DiceMethods.rollDiceArray(this.props.diceCount);
-    const newDice = DiceMethods.createDiceArray(newRoll);
     this.setState({
-      dice: newRoll,
-      imges: newDice,
+      dice: this.initDice(),
     });
   }
 
+  /**
+   * Updates the individual dice input that changed.
+   * @param {Event} e Dice input event args.
+   */
+  onDiceInput(e) {
+    this.setState({
+      input: e.target.value,
+    });
+    const output = [];
+    for (let i = 0; i < this.state.input.length; i += 1) {
+      const inpNum = Number(this.state.input[i]);
+      output.push(
+        <DiceDisplay number={inpNum} id={i} />,
+      );
+    }
+    this.setState({
+      dice: output,
+    });
+  }
+
+  initDice() {
+    const output = [];
+    for (let i = 0; i < this.props.diceCount; i += 1) {
+      output.push(
+        <DiceDisplay number={DiceMethods.roll()} id={i} />,
+      );
+    }
+    return output;
+  }
+
   render() {
-    const DiceDisplays = this.state.imges.map((img) => <DiceDisplay imge={img} />);
+    // const DiceDisplays = this.state.imges.map((img) => <DiceDisplay number={img} />);
     return (
       <div className="App">
-        <input type="number" onChange={this.onDiceSelect} />
-        <DiceContainer allDice={DiceDisplays} />
+        <input type="text" onChange={this.onDiceInput} value={this.state.input} />
+        <DiceContainer allDice={this.state.dice} />
         <button type="button" onClick={this.onDiceRoll}>Roll Dice</button>
-        <p>{this.state.dice}</p>
       </div>
     );
   }
 }
 MainPage.propTypes = {
   diceCount: PropTypes.number.isRequired,
-}
+};
