@@ -1,4 +1,4 @@
-import diceSelector from "../components/DiceSelector";
+import diceSelector from '../components/DiceSelector';
 
 /**
  * Dice control class.
