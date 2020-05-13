@@ -32,19 +32,21 @@ export default class MainPage extends React.Component {
    * @param {Event} e Dice input event args.
    */
   onDiceInput(e) {
-    this.setState({
-      input: e.target.value,
-    });
+    const val = e.target.value;
+    console.log(val);
     const output = [];
-    for (let i = 0; i < this.state.input.length; i += 1) {
-      const inpNum = Number(this.state.input[i]);
-      output.push(
-        <DiceDisplay number={inpNum} id={i} />,
-      );
+    for (let i = 0; i < val.length; i += 1) {
+      const inpNum = Number(val[i]);
+      if (DiceMethods.checkDice(inpNum)) {
+        output.push(
+          <DiceDisplay number={inpNum} id={i} />,
+        );
+      }
     }
-    this.setState({
+    this.setState((state) => ({
       dice: output,
-    });
+      input: val,
+    }));
   }
 
   initDice() {

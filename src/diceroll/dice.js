@@ -10,6 +10,10 @@ export default class Dice {
     return this.checkDice(adjRandom);
   }
 
+  /**
+   * Checks the number given for the correct dice range (1-6) and returns a boolean.
+   * @param {Number} num The number to check.
+   */
   static checkDice(num) {
     if (num === undefined) {
       return 0;
