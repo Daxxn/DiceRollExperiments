@@ -6,6 +6,7 @@
         "react/jsx-filename-extension":"off",
         "react/destructuring-assignment":"off",
         "react/prefer-stateless-function":"off",
-        "no-else-return": ["warn", {"allowElseIf": false}]
+        "no-else-return": ["warn", {"allowElseIf": false}],
+        "no-restricted-syntax":"off"
     }
 }

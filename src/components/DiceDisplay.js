@@ -5,12 +5,11 @@ import DiceSelector from './DiceSelector';
 
 export default function DiceDisplay(props) {
   return (
-    <div id={props.id}>
+    <div>
       <img className="dice-image" src={DiceSelector(props.number)} alt="not found." />
     </div>
   );
 }
 DiceDisplay.propTypes = {
-  id: PropTypes.number.isRequired,
   number: PropTypes.number.isRequired,
 };

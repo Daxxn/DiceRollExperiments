@@ -4,13 +4,17 @@ import DiceDisplay from './DiceDisplay';
 
 export default class DiceContainer extends Component {
   render() {
+    const diceData = [];
+    for (let i = 0; i < this.props.allDice.length; i += 1) {
+      diceData.push(<DiceDisplay key={i} number={this.props.allDice[i]} />);
+    }
     return (
       <ul>
-        {this.props.allDice}
+        {diceData}
       </ul>
     );
   }
 }
 DiceContainer.propTypes = {
-  allDice: PropTypes.arrayOf(DiceDisplay).isRequired,
+  allDice: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
