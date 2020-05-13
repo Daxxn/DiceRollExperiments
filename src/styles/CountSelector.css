@@ -1,0 +1,10 @@
+button {
+  background-color: #5f739c;
+  color: #b0c2e7;
+  transition: background-color color 0.2s;
+}
+
+button:hover {
+  background-color: #849ac7;
+  color: #5c667c;
+}

@@ -1,3 +1,13 @@
 .dice-spacing {
   margin: 0 10px 0 10px;
 }
+
+input {
+  background-color: #4c5b7a;
+  color: #b0c2e7;
+}
+
+input::selection {
+  background-color: #9ebcf7;
+  color: #22262e;
+}

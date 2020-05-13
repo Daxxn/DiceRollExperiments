@@ -5,9 +5,7 @@ import DiceSelector from './DiceSelector';
 
 export default function DiceDisplay(props) {
   return (
-    <div>
-      <img className="dice-image" src={DiceSelector(props.number)} alt="not found." />
-    </div>
+    <img className="dice-image" src={DiceSelector(props.number)} alt="not found." />
   );
 }
 DiceDisplay.propTypes = {

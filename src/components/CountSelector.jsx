@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/CountSelector.css';
 
 export default class CountSelector extends Component {
   render() {
     return (
       <div>
-        <p>{this.props.count}</p>
-        <button id="up" type="button" onClick={this.props.countClick}>/\</button>
-        <button id="dn" type="button" onClick={this.props.countClick}>\/</button>
+        {this.props.count}
+        <div>
+          <button id="dn" type="button" onClick={this.props.countClick}>\/</button>
+          <button id="up" type="button" onClick={this.props.countClick}>/\</button>
+        </div>
       </div>
     );
   }
